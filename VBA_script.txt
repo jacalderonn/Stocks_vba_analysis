@@ -1,0 +1,57 @@
+Sub Stock()
+    Dim ticker As String
+    Dim total_vol As Double
+    Dim row_count, row_count_table As Long
+    Dim yearly_change, Open_price, Close_price As Double
+    Dim Row_table, i As Double
+    Dim big_increase, big_decrease, big_volume As Double
+    
+    total_vol = 0
+    row_count = Cells(Rows.Count, 1).End(xlUp).Row
+    
+    ' Rows in the second table (Summary table)
+    Row_table = 2
+        
+    For i = 2 To row_count
+        ' Finding the opening and closing price taking into accont the begining and end of the year in column 2
+        If Cells(i, 2) = 20160101 Then
+            Open_price = Cells(i, 3).Value
+        ElseIf Cells(i, 2) = 20161230 Then
+            Close_price = Cells(i, 6).Value
+            
+        End If
+            
+        ' Comparison of the ticker
+        If Cells(i + 1, 1).Value <> Cells(i, 1).Value Then
+            ticker = Cells(i, 1).Value
+        
+            total_vol = total_vol + Cells(i, 7).Value
+        
+            Cells(Row_table, 9).Value = ticker
+        
+            Cells(Row_table, 12).Value = total_vol
+            
+            ' Finding the Yearly change and filling the cell either green or red
+            Cells(Row_table, 10).Value = Close_price - Open_price
+            If Cells(Row_table, 10).Value < 0 Then
+                Cells(Row_table, 10).Interior.ColorIndex = 3
+            Else
+                Cells(Row_table, 10).Interior.ColorIndex = 4
+            End If
+            ' Finding the Percent Change
+            Cells(Row_table, 11).Value = Cells(Row_table, 10) / Open_price
+            
+            ' Moving down on the Summary table
+            Row_table = Row_table + 1
+                        
+            total_vol = 0
+        Else
+            ' Adding the volume corresponding to the same ticker
+            total_vol = total_vol + Cells(i, 7).Value
+             
+        End If
+        
+    Next i
+    
+      
+End Sub
