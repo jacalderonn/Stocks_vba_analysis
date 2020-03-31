@@ -1,3 +1,4 @@
 # VBA-challenge
 
-Homework 1 using Visual Basic
+Homework 2. 
+Using Visual Basic
