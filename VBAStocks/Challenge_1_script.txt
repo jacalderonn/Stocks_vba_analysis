@@ -1,0 +1,44 @@
+Sub Increases()
+    ' Challenge 1. Finding greatest percentages
+    Dim big_increase, big_decrease, big_volume As Double
+    Dim row_count_table As Long
+    Dim index_increase, index_decrease, index_vol As Integer
+    
+    row_count_table = Cells(Rows.Count, 9).End(xlUp).Row
+    
+    ' Setting the initial values of the percent increase and decrease, and the total volume
+    ' to later compare with the rest
+    big_increase = Cells(2, 11)
+    big_decrease = Cells(2, 11)
+    big_volume = Cells(2, 12)
+      
+    For i = 2 To row_count_table
+        ' Finding the greatest % increase and its cell row (index)
+        If big_increase < Cells(i, 11) Then
+            big_increase = Cells(i, 11)
+            index_increase = i
+        End If
+        ' Finding the greatest % decrease and its cell row (index)
+        If big_decrease > Cells(i, 11) Then
+            big_decrease = Cells(i, 11)
+            index_decrease = i
+        End If
+        ' Finding the greatest total volume and its cell row (index)
+        If big_volume < Cells(i, 12) Then
+            big_volume = Cells(i, 12)
+            index_volume = i
+        End If
+        
+        Next i
+        
+    ' Writting the values found in the third table of greatest values
+    Cells(2, 16).Value = Cells(index_increase, 9).Value
+    Cells(3, 16).Value = Cells(index_decrease, 9).Value
+    Cells(4, 16).Value = Cells(index_volume, 9).Value
+      
+    Cells(2, 17).Value = big_increase
+    Cells(3, 17).Value = big_decrease
+    Cells(4, 17).Value = big_volume
+ 
+
+End Sub
